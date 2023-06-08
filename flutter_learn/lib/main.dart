@@ -16,7 +16,38 @@ class Home extends StatelessWidget {
         backgroundColor: Colors.black45,
         centerTitle: true,
       ),
-      body:Column(
+      body:Row(
+        children: [
+          Expanded(child: Image.asset('photos/default.jpg'),
+          flex: 7),
+          Expanded(
+            flex: 3,
+            child: Container(
+              padding: EdgeInsets.all(30),
+              color: Colors.cyan,
+              child: Text('1'),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Container(
+              padding: EdgeInsets.all(30),
+              color: Colors.red,
+              child: Text('2'),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Container(
+              padding: EdgeInsets.all(30),
+              color: Colors.yellow,
+              child: Text('3'),
+            ),
+          ),
+        ],
+      ),
+
+      /*Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -51,7 +82,7 @@ class Home extends StatelessWidget {
         )
 
       ],),
-
+*/
       /*Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.end,
