@@ -6,25 +6,41 @@ void main() {
   ));
 
 }
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  var ninjaLevel = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('Ninja ID Card'),
+        title: const Text('Ninja ID Card'),
         backgroundColor: Colors.grey[850],
         centerTitle: true,
         elevation: 0,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed:(){
+          setState(() {
+            ninjaLevel++;
+          });
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.grey[800],
+      ),
       body:  Padding(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
+              const Center(
                 child: CircleAvatar(
                   backgroundImage: AssetImage('asset/images/download.jpeg'),
                   radius: 40,
@@ -35,41 +51,41 @@ class Home extends StatelessWidget {
                 height: 60,
                 color: Colors.grey[800],
               ),
-              Text('NAME',
+              const Text('NAME',
               style: TextStyle(
                   color:Colors.grey,
               letterSpacing: 2.0),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,),
-              Text('Maxwell',
+              const Text('Maxwell',
                 style: TextStyle(
                     color:Colors.yellow,
                     letterSpacing: 2.0,
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              Text('CURRENT NINJA LEVEL',
+              const Text('CURRENT NINJA LEVEL',
                 style: TextStyle(
                     color:Colors.grey,
                     letterSpacing: 2.0),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,),
-              Text('8',
-                style: TextStyle(
+               Text('$ninjaLevel',
+                style: const TextStyle(
                     color:Colors.yellow,
                     letterSpacing: 2.0,
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              Row(
+              const Row(
                 children: [
                   Icon(Icons.mail,
                   color: Colors.white54,
@@ -91,5 +107,7 @@ class Home extends StatelessWidget {
     );
   }
 }
+
+
 
 
