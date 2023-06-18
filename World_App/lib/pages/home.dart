@@ -17,7 +17,7 @@ class _HomeState extends State<Home> {
     data= ModalRoute.of(context)?.settings.arguments as Map<String, String>;
     print(data);
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Colors.white,
       body:  SafeArea(
           child: Column(
             children: [
@@ -26,8 +26,29 @@ class _HomeState extends State<Home> {
               },
                 label:const Text('Edit location',),
             icon: const Icon(Icons.edit_location)),
+              const SizedBox(height: 20,),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [Text(data['location'],
+                  style: const TextStyle(
+                    fontSize: 28,
+                  ),
+                  ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 30),
+              Text(data['time'],
+              style:const TextStyle(
+                fontSize: 70,
+                fontWeight: FontWeight.bold,
+              ),
+              ),
             ],
-          )),
+          ),
+      ),
     );
   }
 }

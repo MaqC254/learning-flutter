@@ -14,13 +14,13 @@ class _ChooseLocationState extends State<ChooseLocation> {
     return Scaffold(
       backgroundColor: Colors.black54,
       appBar: AppBar(
-        title: Text('Choose location'),
+        title: const Text('Choose location'),
         backgroundColor: Colors.blueAccent,
         centerTitle: true,
         elevation: 0.0,
 
       ),
-      body: Text('Choose location screen',
+      body: const Text('Choose location screen',
         style: TextStyle(
           color: Colors.white,
         ),
