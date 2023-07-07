@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../services/auth.dart';
 
 class Home extends StatelessWidget {
@@ -14,7 +12,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.brown[50],
       appBar: AppBar(
-        title: Text('Brew Crew'),
+        title: const Text('Brew Crew'),
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
         centerTitle: true,
@@ -22,8 +20,8 @@ class Home extends StatelessWidget {
           TextButton.icon(onPressed: () async{
             await _authService.logout();
           },
-              icon: Icon(Icons.person),
-          label: Text('Logout'))
+              icon: const Icon(Icons.person),
+          label: const Text('Logout'))
         ],
       ),
     );
