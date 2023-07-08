@@ -1,8 +1,11 @@
 import 'package:brew_crew/services/auth.dart';
+import 'package:brew_crew/shared/loading.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
-  const Register({super.key});
+
+  final Function toggleView;
+  const Register({super.key, required this.toggleView});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -16,6 +19,10 @@ class _RegisterState extends State<Register> {
   final  passController = TextEditingController();
   late String email;
   late String password;
+  String error = '';
+  bool loading = false;
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose(){
@@ -38,9 +45,23 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.brown,
       appBar: AppBar(
+        actions: [
+          TextButton.icon(onPressed: (){
+            widget.toggleView();
+          },
+              icon: const Icon(Icons.person,
+              color: Colors.black,
+              ),
+              label: const Text('Sign In',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+              ),
+          ),
+        ],
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
         title: const Text('Sign up'),
@@ -49,28 +70,34 @@ class _RegisterState extends State<Register> {
       body: Container(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
           child: Form(
+            key: _formKey,
             child: Column(
               children: [
                 const SizedBox(
                   height: 20,),
                 TextFormField(
+                  validator: (val) => val!.isEmpty ? 'Enter an email' : null,
                   controller: emailController,
-                  onChanged: (val){
-
-                  },
+                  keyboardType: TextInputType.emailAddress,
+                  autocorrect: false,
                   decoration: const InputDecoration(
                     label: Text('Enter your email'),
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
                 ),
                 const SizedBox(
                   height: 20,),
                 TextFormField(
+                  validator: (val)=> val!.length<6 ? 'Enter a password with 6 characters or more' : null,
                   controller: passController,
-                  onChanged: (val){
-                  },
                   obscureText: true,
+                  autocorrect: false,
+                  enableSuggestions: false,
                   decoration: const InputDecoration(
                     label: Text('Enter your password'),
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
                 ),
                 const SizedBox(
@@ -78,7 +105,18 @@ class _RegisterState extends State<Register> {
                 ),
                 ElevatedButton(
                   onPressed: () async{
-                    await _authService.createUser(email, password);
+                    if(_formKey.currentState!.validate()){
+                      setState(() {
+                        loading = true;
+                      });
+                      dynamic result = await _authService.createUser(email, password);
+                      if(result == null){
+                        setState(() {
+                          loading = false;
+                          error = 'Email or password is invalid';
+                        });
+                      }
+                    }
                   },
                   child:const Text('Register',
                     style: TextStyle(
@@ -86,9 +124,17 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                    height: 12,
+                ),
+                Text(error,
+                style:const TextStyle(
+                  color: Colors.red,
+                  fontSize: 12.0,
+                ),)
               ],
             ),
-          )
+          ),
       ),
     );
   }
